@@ -117,16 +117,11 @@ public class Inventory implements Iterable<ItemStack>, Cloneable
      */
     public ItemStack findMatchingItemStack(ItemStack key)
     {
-        Iterator<ItemStack> it = this.iterator();
-
-        while(it.hasNext()) {
-            ItemStack current = it.next();
-
+        for (ItemStack current : this.slots) {
             if (current.equals(key)) {
                 return current;
             }
         }
-
         return null;
     }
 
@@ -173,12 +168,10 @@ public class Inventory implements Iterable<ItemStack>, Cloneable
     public Inventory clone()
     {
         Inventory copy = new Inventory(this.totalSlots());
-        Iterator<ItemStack> it = this.iterator();
-        
-        while (it.hasNext()){
-            copy.addItems(it.next());
-        }
 
+        for (ItemStack stack : this.slots) {
+            copy.addItems(stack);
+        }
         return copy;
     }
 
@@ -224,10 +217,8 @@ public class Inventory implements Iterable<ItemStack>, Cloneable
         StringBuilder strBld = new StringBuilder();
         strBld.append(summaryLine);
 
-        Iterator<ItemStack> it = this.iterator();
-
-        while (it.hasNext()) {
-            String itemLine = String.format("  %s%n", it.next());
+        for (ItemStack stack : this.slots) {
+            String itemLine = String.format("  %s%n", stack);
             strBld.append(itemLine);
         }
 
